@@ -90,7 +90,7 @@ exports.render = ->
 
 	selCntO = selO.count()
 		
-	cols = Math.max(2,0|Page.width()/130)
+	cols = Math.max(2,0|Page.width()/140)
 	perc = (100/cols)+'%'
 
 	candsO.iterate (cand) !->
@@ -113,24 +113,22 @@ exports.render = ->
 			Dom.div !->
 				Dom.style
 					position: 'absolute'
-					width: '100%'
-					height: '100%'
-					top: 0
+					padding: '7px 12px 7px 9px'
 					left: 0
-					background_: "linear-gradient(top, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%)"
+					borderTopRightRadius: '5px'
+					bottom: 0
 					color: 'white'
-					Box: "bottom"
-				Dom.div !->
-					Dom.style padding: '3%'
-					Icon.render
-						data: "info"
-						color: 'white'
-						style: marginRight: '4px', verticalAlign: "top"
-						size: 18
-					Dom.text cand.get("name")
-				
-					Dom.onTap !->
-						Page.nav [candId]
+					backgroundColor: 'rgba(0,0,0,0.7)'
+					border: '1px solid rgba(255,255,255,0.2)'
+				Icon.render
+					data: "info"
+					color: 'white'
+					style: marginRight: '4px', verticalAlign: "top"
+					size: 18
+				Dom.text cand.get("name")
+			
+				Dom.onTap !->
+					Page.nav [candId]
 
 			return if out
 
@@ -142,14 +140,14 @@ exports.render = ->
 			Obs.observe !->
 				if sel = selO.get(candId)
 
-					Icon.render
-						data: 'fingerprint'
-						size: 70
-						color: '#3e3'
-						style:
+					Dom.img !->
+						Dom.prop src: Plugin.resourceUri('fingerprint.png')
+						Dom.style
 							position: 'absolute'
-							right: '-33px'
-							bottom: '-30px'
+							right: 0
+							bottom: 0
+							width: '40px'
+							height: '50px'
 
 					Dom.div !->
 						Dom.style

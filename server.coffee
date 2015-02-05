@@ -3,19 +3,23 @@ Plugin = require 'plugin'
 Timer = require 'timer'
 Event = require 'event'
 
+
 candidates = {
 	1:
 		name: "Ajouad"
 		full: "Ajouad El Miloudi"
+		out: true
 	2:
 		name: "Carolina"
 		full: "Carolina Dijkhuizen"
+		out: true
 	3:
 		name: "Chris"
 		full: "Chris Zegers"
 	4:
 		name: "Evelien"
 		full: "Evelien Bosch-Gademan"
+		out: true
 	5:
 		name: "Margriet"
 		full: "Margriet van der Linden"
@@ -35,8 +39,8 @@ candidates = {
 	10:
 		name: "Viktor"
 		full: "Viktor Brand"
+		out: true
 }
-
 
 week = 3600*24*7
 getNext = (start) ->
@@ -52,7 +56,7 @@ exports.onInstall = exports.onUpgrade = update = !->
 	Db.shared.set 'candidates', candidates
 
 	time = Plugin.time()
-	if time < start + week*12-5
+	if time < start + week*13-5
 		next = getNext start
 		vote = getNext start-3600
 		Timer.set (next-time)*1000, 'showStarts'
@@ -63,7 +67,7 @@ exports.onInstall = exports.onUpgrade = update = !->
 	# check votes
 	for userId in Plugin.userIds()
 		votes = Db.personal(userId).get('votes')
-		return if !votes
+		continue if !votes
 		cnt = 0
 		change = false
 		for candId of votes
